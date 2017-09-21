@@ -7,28 +7,33 @@ touch $XAUTH
 xauth nlist :0 | sed -e 's/^..../ffff/' | xauth -f $XAUTH nmerge -
 exectype=$1
 
-if [ $exectype = "gui" ]
+if [ $exectype = "gui" ];
 then
-echo "Please enter the path to your input files:" 
+	echo "Running docker in GUI mode"
 
-echo ""
-read inputpath
-echo "Please enter the path to your outputfolder:" 
+	echo "Please enter the path to your input files:" 
 
-echo ""
-read outputpath
+	echo ""
+	read inputpath
+	echo "Please enter the path to your outputfolder:" 
 
+	echo ""
+	read outputpath
 
-
-sudo docker run -ti  -v $inputpath:/input -v $outputpath:/output -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino DOMINO
-
-elif  [ $exectype="commandline" ]
-then
-
-sudo docker run -ti  -v $inputpath:/input -v $outputpath:/output -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino /bin/bash
+	sudo docker run -ti  -v $inputpath:/input -v $outputpath:/output -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino DOMINO
 
 else
 
-echo "Wrong parameter: correct parameters are commandline or gui"
+	if [ $exectype = "commandline" ];
+
+        	then
+		echo "Running docker in command line mode"
+		sudo docker run -ti  -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino /bin/bash
+
+	else
+
+	echo "Wrong input parameter. Correct parameters are: commandline or gui"
+
+	fi
 
 fi
