@@ -5,16 +5,15 @@
 ############
 install_dir=`pwd`
 current_dir_path=`pwd`
-current_dir=$(dirname $current_dir_path)
-binaries_tar=$current_dir_path"/files/"third_party_binaries-src.tar-Linux.gz
-file_name=third_party_binaries-src.tar-Linux.gz
+binaries_tar=$current_dir_path"/files/third_party_binaries-src.tar-Linux.gz"
+file_name="third_party_binaries-src.tar-Linux.gz"
 
 #############
 ## Directories ##
 #############
 bin_folder=$install_dir"/bin"
 scripts_folder=$bin_folder"/scripts"
-tmp_dir_path=$install_dir"/tmp_dir
+tmp_dir_path=$install_dir"/tmp_dir"
 
 mkdir $bin_folder
 mkdir $scripts_folder
@@ -114,26 +113,28 @@ done
 #################################
 ## install perl modules: NGSQCTOOLKIT ##
 #################################
-cp $current_dir"/files/tarGZ_modules_Perl_NGSQCToolkit.tar.gz" $tmp_dir_path
+cp $current_dir_path"/files/tarGZ_modules_Perl_NGSQCToolkit.tar.gz" $tmp_dir_path
 cd $tmp_dir_path
-tar -zxvf tarGZ_modules_Perl_NGSQCToolkit.tar.gz
+tar -zxvf "./tarGZ_modules_Perl_NGSQCToolkit.tar.gz"
 cd $current_dir
-perl $current_dir"/files/unzip_install_NGSQCtoolkit_modules.pl" $tmp_dir_path"/"tarGZ_modules_Perl_NGSQCToolkit $scripts_folder"/NGSQCToolkit_v2.3.1"
+perl $current_dir_path"/files/unzip_install_NGSQCtoolkit_modules.pl" $tmp_dir_path"/tarGZ_modules_Perl_NGSQCToolkit" $scripts_folder"/NGSQCToolkit_v2.3.1"
+
 
 ###########################
 ## install perl modules DOMINO ##
 ###########################
-cp $current_dir"/files/tarGZ_modules_Perl.tar.gz" $tmp_dir_path
+cp $current_dir_path"/files/tarGZ_modules_Perl.tar.gz" $tmp_dir_path
 cd $tmp_dir_path
-tar -zxvf tarGZ_modules_Perl.tar.gz
-cd $current_dir
-perl $current_dir"/files/unzip_install_perl_modules.pl" $tmp_dir_path"/"tarGZ_modules_Perl $scripts_folder
-cp -r $install_dir"/bin/NGSQCToolkit_v2.3.1/lib/Parallel" $scripts_folder"/lib"
+tar -zxvf "./tarGZ_modules_Perl.tar.gz"
+cd $current_dir_path
+perl $current_dir_path"/files/unzip_install_perl_modules.pl" $tmp_dir_path"/tarGZ_modules_Perl" $scripts_folder
+cp -r $scripts_folder"/NGSQCToolkit_v2.3.1/lib/Parallel/" $scripts_folder"/lib/"
+cp -r $scripts_folder"/NGSQCToolkit_v2.3.1/lib/Exporter/" $scripts_folder"/lib/"
 
 #############
 ## db_default ##
 #############
-cp $current_dir"/files/db_default.tar.gz" $scripts_folder
+cp $current_dir_path"/files/db_default.tar.gz" $scripts_folder
 cd $scripts_folder
 tar -zxvf "db_default.tar.gz"
 rm -r "db_default.tar.gz"
@@ -143,9 +144,9 @@ rm -rf $tmp_dir_path
 ########################
 ## Copy DOMINO perl code ##
 ########################
-ls "$current_dir/src/perl/" | while read files
+ls $current_dir_path"/src/perl/" | while read files
 do
-	cp "$current_dir/src/perl/$files" $scripts_folder
+	cp $current_dir_path"/src/perl/"$files $scripts_folder
 done
-mv "$install_dir/bin/DOMINO.pm" $scripts_folder"/lib"
+mv $scripts_folder"/DOMINO.pm" $scripts_folder"/lib"
 ) 2>>DOMINO_error.log
