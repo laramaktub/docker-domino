@@ -57,7 +57,7 @@ RUN tar -xvf Python-$version.tgz
 WORKDIR Python-$version
 RUN ./configure
 RUN make
-
+RUN apt-get install -y libncurses5-dev libncursesw5-dev
 
 #Install qt and compile Domino
 WORKDIR /opt
