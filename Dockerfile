@@ -45,9 +45,10 @@ RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 # Add group & user + sudo
 RUN groupadd -r user && useradd --create-home --gid user user && echo 'user ALL=NOPASSWD: ALL' > /etc/sudoers.d/user
 
-
+#Install some missing packages
 RUN apt-get install -y wget unzip libqt5x11extras5 zlib1g-dev g++
 
+#Install python 2.7.13
 RUN apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
 ENV version "2.7.13"
 WORKDIR ~/Downloads/
@@ -58,7 +59,7 @@ RUN ./configure
 RUN make
 
 
-
+#Install qt and compile Domino
 WORKDIR /opt
 RUN wget https://github.com/molevol-ub/DOMINO/archive/master.zip
 RUN unzip master.zip
@@ -67,7 +68,7 @@ RUN qmake DOMINO.pro
 ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/opt/Qt/5.7/gcc_64/lib/"
 RUN make
 WORKDIR /opt/DOMINO-master/
-RUN wget https://github.com/JFsanchezherrero/docker-domino/blob/master/DOMINO_installer_docker.sh
+RUN wget https://raw.githubusercontent.com/JFsanchezherrero/docker-domino/master/DOMINO_installer_docker.sh
 RUN chmod a+x DOMINO_installer_docker.sh 
 RUN ./DOMINO_installer_docker.sh
 RUN cp /opt/DOMINO-master/src/Qt-c++/DOMINO /opt/DOMINO-master/bin
@@ -75,10 +76,9 @@ ENV PATH "$PATH:/opt/DOMINO-master/bin"
 RUN apt-get install -qqy x11-apps
 RUN apt-get install -y dbus
 RUN dbus-uuidgen > /var/lib/dbus/machine-id
-RUN cp -r /opt/DOMINO-master/src/perl /opt/DOMINO-master/bin/scripts
+#RUN cp -r /opt/DOMINO-master/src/perl /opt/DOMINO-master/bin/scripts
 
-
-COPY scripts /opt/DOMINO-master/bin/scripts
+#Needed to be able to use the GUI
 ENV DISPLAY :0
 
 
