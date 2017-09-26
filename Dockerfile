@@ -45,8 +45,21 @@ RUN locale-gen en_US.UTF-8 && dpkg-reconfigure locales
 # Add group & user + sudo
 RUN groupadd -r user && useradd --create-home --gid user user && echo 'user ALL=NOPASSWD: ALL' > /etc/sudoers.d/user
 
+
+RUN apt-get install -y wget unzip libqt5x11extras5 zlib1g-dev g++
+
+RUN apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+ENV version "2.7.13"
+WORKDIR ~/Downloads/
+RUN wget https://www.python.org/ftp/python/$version/Python-$version.tgz
+RUN tar -xvf Python-$version.tgz
+WORKDIR Python-$version
+RUN ./configure
+RUN make
+
+
+
 WORKDIR /opt
-RUN apt-get install -y wget unzip libqt5x11extras5
 RUN wget https://github.com/molevol-ub/DOMINO/archive/master.zip
 RUN unzip master.zip
 WORKDIR /opt/DOMINO-master/src/Qt-c++
@@ -60,6 +73,12 @@ RUN ./installer.sh
 RUN cp /opt/DOMINO-master/src/Qt-c++/DOMINO /opt/DOMINO-master/bin
 ENV PATH "$PATH:/opt/DOMINO-master/bin"
 RUN apt-get install -qqy x11-apps
+RUN apt-get install -y dbus
+RUN dbus-uuidgen > /var/lib/dbus/machine-id
+RUN cp -r /opt/DOMINO-master/src/perl /opt/DOMINO-master/bin/scripts
+
+
+COPY scripts /opt/DOMINO-master/bin/scripts
 ENV DISPLAY :0
 
 
