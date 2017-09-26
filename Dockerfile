@@ -68,7 +68,7 @@ RUN qmake DOMINO.pro
 ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/opt/Qt/5.7/gcc_64/lib/"
 RUN make
 WORKDIR /opt/DOMINO-master/
-RUN wget https://raw.githubusercontent.com/JFsanchezherrero/docker-domino/master/DOMINO_installer_docker.sh
+RUN wget https://raw.githubusercontent.com/laramaktub/docker-domino/master/DOMINO_installer_docker.sh
 RUN chmod a+x DOMINO_installer_docker.sh 
 RUN ./DOMINO_installer_docker.sh
 RUN cp /opt/DOMINO-master/src/Qt-c++/DOMINO /opt/DOMINO-master/bin
