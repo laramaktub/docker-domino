@@ -76,7 +76,6 @@ ENV PATH "$PATH:/opt/DOMINO-master/bin"
 RUN apt-get install -qqy x11-apps
 RUN apt-get install -y dbus
 RUN dbus-uuidgen > /var/lib/dbus/machine-id
-#RUN cp -r /opt/DOMINO-master/src/perl /opt/DOMINO-master/bin/scripts
 
 #Needed to be able to use the GUI
 ENV DISPLAY :0
