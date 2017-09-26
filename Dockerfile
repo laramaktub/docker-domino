@@ -67,9 +67,9 @@ RUN qmake DOMINO.pro
 ENV LD_LIBRARY_PATH "$LD_LIBRARY_PATH:/opt/Qt/5.7/gcc_64/lib/"
 RUN make
 WORKDIR /opt/DOMINO-master/
-RUN wget http://www.hep.uniovi.es/lara/installerbueno.sh && mv installerbueno.sh installer.sh
-RUN chmod a+x installer.sh 
-RUN ./installer.sh
+RUN wget https://github.com/JFsanchezherrero/docker-domino/blob/master/DOMINO_installer_docker.sh
+RUN chmod a+x DOMINO_installer_docker.sh 
+RUN ./DOMINO_installer_docker.sh
 RUN cp /opt/DOMINO-master/src/Qt-c++/DOMINO /opt/DOMINO-master/bin
 ENV PATH "$PATH:/opt/DOMINO-master/bin"
 RUN apt-get install -qqy x11-apps
