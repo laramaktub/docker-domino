@@ -9,18 +9,8 @@ exectype=$1
 
 if [ $exectype = "gui" ];
 then
-	echo "Running docker in GUI mode"
-
-	echo "Please enter the path to your input files:" 
-
-	echo ""
-	read inputpath
-	echo "Please enter the path to your outputfolder:" 
-
-	echo ""
-	read outputpath
-
-	sudo docker run -ti  -v $inputpath:/input -v $outputpath:/output -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino DOMINO
+        echo "Running docker in GUI mode"
+	sudo docker run -ti  -v $HOME:$HOME -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino DOMINO
 
 else
 
@@ -28,7 +18,7 @@ else
 
         	then
 		echo "Running docker in command line mode"
-		sudo docker run -ti  -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino /bin/bash
+		sudo docker run -ti  -v $HOME:$HOME -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino /bin/bash
 
 	else
 
