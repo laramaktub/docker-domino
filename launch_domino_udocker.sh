@@ -11,16 +11,7 @@ if [ $exectype = "gui" ];
 then
 	echo "Running docker in GUI mode"
 
-	echo "Please enter the path to your input files:" 
-
-	echo ""
-	read inputpath
-	echo "Please enter the path to your outputfolder:" 
-
-	echo ""
-	read outputpath
-
-	udocker run   -v $inputpath:/input -v $outputpath:/output -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino DOMINO
+	udocker run   -v $HOME:$HOME  -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino DOMINO
 
 else
 
@@ -28,7 +19,7 @@ else
 
         	then
 		echo "Running docker in command line mode"
-		udocker run   -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino /bin/bash
+		udocker run  -v $HOME:$HOME -v $XSOCK:$XSOCK -v $XAUTH:$XAUTH -e XAUTHORITY=$XAUTH laramaktub/docker-domino /bin/bash
 
 	else
 
