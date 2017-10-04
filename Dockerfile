@@ -50,13 +50,8 @@ RUN apt-get install -y wget unzip libqt5x11extras5 zlib1g-dev g++
 
 #Install python 2.7.13
 RUN apt-get install -y build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
-ENV version "2.7.13"
-WORKDIR ~/Downloads/
-RUN wget https://www.python.org/ftp/python/$version/Python-$version.tgz
-RUN tar -xvf Python-$version.tgz
-WORKDIR Python-$version
-RUN ./configure
-RUN make
+RUN apt-get install -y python
+
 RUN apt-get install -y libncurses5-dev libncursesw5-dev
 
 #Install qt and compile Domino
